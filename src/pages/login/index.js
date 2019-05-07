@@ -48,7 +48,6 @@ export default class Login extends Component {
         <View className='title-des'>多媒体教室故障报修系统</View>
         <View className='bgtopWrap'>
           <View className='loginWrap'>
-            <Input />
             <View className='inpuWrapMpblie'>
               <Input
                 type='text'
