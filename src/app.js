@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { Provider } from '@tarojs/redux'
 import '@tarojs/async-await'
-import Index from './pages/index'
+import Login from './pages/login'
 import dva from './utils/dva';
 import models from './models'
 
@@ -23,6 +23,7 @@ class App extends Component {
 
   config = {
     pages: [
+      'pages/login/index',
       'pages/index/index'
     ],
     window: {
@@ -46,7 +47,7 @@ class App extends Component {
   render () {
     return (
       <Provider store={store}>
-        <Index />
+        <Login />
       </Provider>
     )
   }

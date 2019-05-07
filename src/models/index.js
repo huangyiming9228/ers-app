@@ -1,3 +1,4 @@
 import common from './common';
+import login from './login';
 
-export default [common];
+export default [common, login];
