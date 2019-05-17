@@ -1,6 +1,6 @@
 import Taro from '@tarojs/taro';
 import request from '../utils/request';
-import action from '../utils/action';
+import Action from '../utils/action';
 
 export default {
   namespace: 'login',
@@ -15,7 +15,7 @@ export default {
     }
   },
   effects: {
-    *login(_, { call, put, select }) {
+    *login(_, { call, select }) {
       const { user_no, psw } = yield select(state => state.login);
       const { data, message, status } = yield call(request, {
         url: 'http://localhost/ers/api/login/login_check',
@@ -24,18 +24,15 @@ export default {
           psw
         },
       });
-      if (status === 'success') {
-        Taro.setStorageSync('token', data.token);
-        yield put(action('common/save', { token: data.token }));
+      if (status === 'ok') {
+        Taro.setStorage({ key: 'user', data })
         Taro.showToast({
           title: message,
           icon: 'none',
         });
-        setTimeout(() => {
-          Taro.redirectTo({
-            url: '/pages/index/index'
-          })
-        }, 1500);
+        Taro.redirectTo({
+          url: '/pages/etmanage/index'
+        })
       } else {
         Taro.showToast({
           title: message,

@@ -2,7 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Input, Button } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import './index.less'
-import action from '../../utils/action'
+import Action from '../../utils/action'
 
 @connect(({ login, loading }) => ({
   ...login,
@@ -16,12 +16,12 @@ export default class Login extends Component {
 
   hanldeNoChange = (event) => {
     const value = event.target.value;
-    this.props.dispatch(action('login/save', { user_no: value }));
+    this.props.dispatch(Action('login/save', { user_no: value }));
   }
 
   hanldePswChange = (event) => {
     const value = event.target.value;
-    this.props.dispatch(action('login/save', { psw: value }));
+    this.props.dispatch(Action('login/save', { psw: value }));
   }
 
   showToast(text) {
@@ -36,7 +36,7 @@ export default class Login extends Component {
     if (!user_no || !psw) {
       this.showToast('请输入员工号和密码！');
     } else {
-      dispatch(action('login/login'));
+      dispatch(Action('login/login'));
     }
   }
 

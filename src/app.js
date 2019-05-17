@@ -1,8 +1,9 @@
 import Taro, { Component } from '@tarojs/taro'
 import { Provider } from '@tarojs/redux'
 import '@tarojs/async-await'
+import 'taro-ui/dist/style/index.scss'
 import Login from './pages/login'
-import dva from './utils/dva';
+import dva from './utils/dva'
 import models from './models'
 
 import './app.less'
@@ -23,15 +24,44 @@ class App extends Component {
 
   config = {
     pages: [
+      'pages/etmanage/index',
       'pages/login/index',
-      'pages/index/index'
+      'pages/index/index',
+      'pages/etmaintain/index',
+      'pages/account/index',
     ],
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',
       navigationBarTitleText: 'WeChat',
       navigationBarTextStyle: 'black'
-    }
+    },
+    tabBar: {
+      list: [
+        {
+          pagePath: 'pages/etmanage/index',
+          text: '设备管理',
+          iconPath: './images/etmanage_off.png',
+          selectedIconPath: './images/etmanage_on.png',
+        },
+        {
+          pagePath: 'pages/etmaintain/index',
+          text: '设备维护',
+          iconPath: './images/etmaintain_off.png',
+          selectedIconPath: './images/etmaintain_on.png',
+        },
+        {
+          pagePath: 'pages/account/index',
+          text: '我的',
+          iconPath: './images/account_off.png',
+          selectedIconPath: './images/account_on.png',
+        },
+      ],
+      color: '#555',
+      selectedColor: '#1890FF',
+      backgroundColor: '#fff',
+      borderStyle: 'black',
+    },
   }
 
   componentDidMount () {}
