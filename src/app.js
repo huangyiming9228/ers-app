@@ -29,6 +29,7 @@ class App extends Component {
       'pages/index/index',
       'pages/etmaintain/index',
       'pages/account/index',
+      'pages/etcheck/index'
     ],
     window: {
       backgroundTextStyle: 'light',
