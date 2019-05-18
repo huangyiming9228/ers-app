@@ -32,6 +32,7 @@ class App extends Component {
       'pages/etcheck/index',
       'pages/etcheckout/index',
       'pages/foodcomplaint/index',
+      'pages/faultcomplaint/index',
     ],
     window: {
       backgroundTextStyle: 'light',

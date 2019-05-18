@@ -35,6 +35,10 @@ export default class Login extends Component {
     url: '../../pages/foodcomplaint/index'
   })
 
+  handleFaultcomplaintClick = () => Taro.navigateTo({
+    url: '../../pages/faultcomplaint/index'
+  })
+
   login = () => {
     const { user_no, psw, dispatch } = this.props;
     if (!user_no || !psw) {
@@ -74,7 +78,7 @@ export default class Login extends Component {
             </Button>
             <View className='see-des'>
               <Text onClick={this.handleFoodcomplaintClick}>卫生投诉</Text>
-              <Text>故障投诉</Text>
+              <Text onClick={this.handleFaultcomplaintClick}>故障投诉</Text>
             </View>
           </View>
         </View>
