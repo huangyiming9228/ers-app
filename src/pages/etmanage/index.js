@@ -6,14 +6,16 @@ import ListTitle from '../components/ListTitle'
 
 export default class EtManage extends Component {
   config = {
-    navigationBarTitleText: '设备管理'
+    navigationBarTitleText: '西柚设备管理工具'
   }
 
   handleEtCheckClick = () => Taro.navigateTo({
     url: '../../pages/etcheck/index'
   })
 
-  handleEtCheckOutClick = () => {}
+  handleEtCheckOutClick = () => Taro.navigateTo({
+    url: '../../pages/etcheckout/index'
+  })
 
   handleSafetyRecordClick = () => {}
 
