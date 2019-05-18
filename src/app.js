@@ -24,13 +24,14 @@ class App extends Component {
 
   config = {
     pages: [
-      'pages/etmanage/index',
       'pages/login/index',
+      'pages/etmanage/index',
       'pages/index/index',
       'pages/etmaintain/index',
       'pages/account/index',
       'pages/etcheck/index',
       'pages/etcheckout/index',
+      'pages/foodcomplaint/index',
     ],
     window: {
       backgroundTextStyle: 'light',

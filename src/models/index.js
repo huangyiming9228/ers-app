@@ -1,6 +1,7 @@
 import common from './common';
 import login from './login';
 import etcheck from './etcheck';
-import etcheckout from './etcheckout'
+import etcheckout from './etcheckout';
+import foodcomplaint from './foodcomplaint';
 
-export default [common, login, etcheck, etcheckout];
+export default [common, login, etcheck, etcheckout, foodcomplaint];

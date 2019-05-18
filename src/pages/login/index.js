@@ -11,7 +11,7 @@ import Action from '../../utils/action'
 export default class Login extends Component {
 
   config = {
-    navigationBarTitleText: '登录'
+    navigationBarTitleText: '西柚设备管理工具'
   }
 
   hanldeNoChange = (event) => {
@@ -30,6 +30,10 @@ export default class Login extends Component {
       icon: 'none',
     });
   }
+
+  handleFoodcomplaintClick = () => Taro.navigateTo({
+    url: '../../pages/foodcomplaint/index'
+  })
 
   login = () => {
     const { user_no, psw, dispatch } = this.props;
@@ -69,7 +73,7 @@ export default class Login extends Component {
               登录
             </Button>
             <View className='see-des'>
-              <Text>卫生投诉</Text>
+              <Text onClick={this.handleFoodcomplaintClick}>卫生投诉</Text>
               <Text>故障投诉</Text>
             </View>
           </View>

@@ -30,7 +30,7 @@ export default {
           title: message,
           icon: 'none',
         });
-        Taro.redirectTo({
+        Taro.switchTab({
           url: '/pages/etmanage/index'
         })
       } else {
