@@ -4,9 +4,7 @@ import { connect } from '@tarojs/redux'
 import {
   AtList,
   AtActivityIndicator,
-  AtButton,
   AtDivider,
-  AtMessage,
   AtListItem,
 } from 'taro-ui'
 import ListTitle from '../components/ListTitle'

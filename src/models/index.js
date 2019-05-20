@@ -5,7 +5,8 @@ import etcheckout from './etcheckout';
 import foodcomplaint from './foodcomplaint';
 import faultcomplaint from './faultcomplaint';
 import faulthanding from './faulthanding';
-import faultlist from './faultlist'
+import faultlist from './faultlist';
+import machine from './machine';
 
 export default [
   common,
@@ -16,4 +17,5 @@ export default [
   faultcomplaint,
   faulthanding,
   faultlist,
+  machine,
 ];
