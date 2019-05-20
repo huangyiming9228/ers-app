@@ -24,15 +24,17 @@ class App extends Component {
 
   config = {
     pages: [
+      'pages/etmaintain/index',
       'pages/login/index',
       'pages/etmanage/index',
       'pages/index/index',
-      'pages/etmaintain/index',
       'pages/account/index',
       'pages/etcheck/index',
       'pages/etcheckout/index',
       'pages/foodcomplaint/index',
       'pages/faultcomplaint/index',
+      'pages/faulthanding/index',
+      'pages/faulthanding_subpage/index',
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -54,12 +56,12 @@ class App extends Component {
           iconPath: './images/etmaintain_off.png',
           selectedIconPath: './images/etmaintain_on.png',
         },
-        {
-          pagePath: 'pages/account/index',
-          text: '我的',
-          iconPath: './images/account_off.png',
-          selectedIconPath: './images/account_on.png',
-        },
+        // {
+        //   pagePath: 'pages/account/index',
+        //   text: '我的',
+        //   iconPath: './images/account_off.png',
+        //   selectedIconPath: './images/account_on.png',
+        // },
       ],
       color: '#555',
       selectedColor: '#1890FF',
