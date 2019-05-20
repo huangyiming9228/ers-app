@@ -25,6 +25,7 @@ export default class FaultHanding extends Component {
 
   componentDidMount() {
     this.props.dispatch(Action('faulthanding/getAreas'))
+    this.props.dispatch(Action('faulthanding/getUsers'))
   }
 
   handleAreaChange = e => {
@@ -64,6 +65,9 @@ export default class FaultHanding extends Component {
     this.props.dispatch(Action('faulthanding/save', {
       selectedEquipment: item,
       selectedFaultList: [],
+      selectedUser: {
+        user_name: '',
+      },
     }))
     Taro.navigateTo({
       url: '../../pages/faulthanding_subpage/index'

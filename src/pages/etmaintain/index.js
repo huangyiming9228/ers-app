@@ -13,6 +13,10 @@ export default class EtManage extends Component {
     url: '../../pages/faulthanding/index'
   })
 
+  handleFaultListClick = () => Taro.navigateTo({
+    url: '../../pages/faultlist/index'
+  })
+
   render() {
     return (
       <View>
@@ -20,6 +24,7 @@ export default class EtManage extends Component {
         <ListTitle title='列表' />
         <AtList>
           <AtListItem title='故障处理' arrow='right' onClick={this.handleFaultHandingClick} />
+          <AtListItem title='待处理故障' arrow='right' onClick={this.handleFaultListClick} />
         </AtList>
       </View>
     )

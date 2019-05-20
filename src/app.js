@@ -35,6 +35,8 @@ class App extends Component {
       'pages/faultcomplaint/index',
       'pages/faulthanding/index',
       'pages/faulthanding_subpage/index',
+      'pages/faultlist/index',
+      'pages/faultlist_subpage/index',
     ],
     window: {
       backgroundTextStyle: 'light',

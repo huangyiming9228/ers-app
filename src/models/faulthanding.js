@@ -21,6 +21,10 @@ export default {
     },
     faultClassList: [],
     selectedFaultList: [],
+    userList: [],
+    selectedUser: {
+      user_name: '',
+    },
   },
   reducers: {
     save(state, { payload }) {
@@ -28,6 +32,12 @@ export default {
     },
   },
   effects: {
+    *getUsers(_, { call, put }) {
+      const { data: userList } = yield call(request, {
+        url: 'http://localhost/ers/api/app/getUsers'
+      });
+      yield put(Action('save', { userList }));
+    },
     *getAreas(_, { call, put }) {
       const { data: areaList } = yield call(request, {
         url: 'http://localhost/ers/api/app/getAllAreas',
@@ -72,8 +82,8 @@ export default {
         faultClassList: data
       }));
     },
-    *submit(_, { call, put, select }) {
-      const { user_no } = Taro.getStorageSync('user');
+    *submit(_, { call, select }) {
+      const { user_no, user_name } = Taro.getStorageSync('user');
       const {
         selectedArea: { id: area_id },
         selectedRoom: { id: room_id },
@@ -84,6 +94,49 @@ export default {
         url: 'http://localhost/ers/api/app/saveFaulthanding',
         data: {
           user_no,
+          user_name,
+          equipment_id,
+          area_id,
+          room_id,
+          fault_list: selectedFaultList
+        }
+      });
+      if (status === 'ok') {
+        Taro.showToast({
+          title: '提交成功！',
+          icon: 'success',
+          mask: true
+        });
+        setTimeout(() => {
+          Taro.navigateBack()
+        }, 1500);
+      } else {
+        Taro.showToast({
+          title: '服务器错误，提交失败！',
+          icon: 'none',
+          mask: true
+        });
+      }
+    },
+    *transfer(_, { call, select }) {
+      const {
+        user_no: transfer_no,
+        user_name: transfer_name,
+      } = Taro.getStorageSync('user');
+      const {
+        selectedArea: { id: area_id },
+        selectedRoom: { id: room_id },
+        selectedEquipment: { id: equipment_id },
+        selectedFaultList,
+        selectedUser: { user_no, user_name },
+      } = yield select(state => state.faulthanding);
+      const { status } = yield call(request, {
+        url: 'http://localhost/ers/api/app/saveTechhanding',
+        data: {
+          user_no,
+          user_name,
+          transfer_no,
+          transfer_name,
           equipment_id,
           area_id,
           room_id,
