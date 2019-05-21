@@ -7,6 +7,7 @@ import faulthanding from './faulthanding';
 import faultlist from './faultlist';
 import machine from './machine';
 import warehouse from './warehouse';
+import ups from './ups';
 
 
 export default [
@@ -19,4 +20,5 @@ export default [
   faultlist,
   machine,
   warehouse,
+  ups,
 ];

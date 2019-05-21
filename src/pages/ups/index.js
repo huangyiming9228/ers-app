@@ -8,20 +8,21 @@ import {
   AtMessage,
   AtActivityIndicator,
   AtRadio,
+  AtInput,
 } from 'taro-ui'
 import { connect } from '@tarojs/redux'
 import Action from '../../utils/action'
 import ListTitle from '../components/ListTitle'
 import CustomPicker from '../components/CustomPicker'
 
-@connect(({ warehouse, loading }) => ({
-  ...warehouse,
-  initialLoading: loading.effects['warehouse/getWarehouseAreaList'],
-  submitLoading: loading.effects['warehouse/submit'],
+@connect(({ ups, loading }) => ({
+  ...ups,
+  initialLoading: loading.effects['ups/getUpsAreaList'],
+  submitLoading: loading.effects['ups/submit'],
 }))
-export default class Warehouse extends Component {
+export default class UPS extends Component {
   config = {
-    navigationBarTitleText: '库房巡检'
+    navigationBarTitleText: 'UPS巡检'
   }
 
   state = {
@@ -29,27 +30,27 @@ export default class Warehouse extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(Action('warehouse/getWarehouseAreaList'))
+    this.props.dispatch(Action('ups/getUpsAreaList'))
   }
 
   handleAreaChange = e => {
     const { areaList, dispatch } = this.props;
-    dispatch(Action('warehouse/save', {
+    dispatch(Action('ups/save', {
       selectedArea: areaList[e.detail.value]
     }))
-    dispatch(Action('warehouse/getWarehouseRoomList'))
+    dispatch(Action('ups/getUpsRoomList'))
   }
 
   handleRoomChange = e => {
     const { roomList, dispatch } = this.props;
-    dispatch(Action('warehouse/save', {
+    dispatch(Action('ups/save', {
       selectedRoom: roomList[e.detail.value]
     }))
   }
 
   handleRadioChange = (value, radioName) => {
     const { record, dispatch } = this.props;
-    dispatch(Action('warehouse/save', {
+    dispatch(Action('ups/save', {
       record: {
         ...record,
         [radioName]: value
@@ -57,7 +58,9 @@ export default class Warehouse extends Component {
     }));
   }
 
-  handleCommentsChange = e => this.props.dispatch(Action('warehouse/save', {
+  handleTemperatureChange = value => this.props.dispatch(Action('ups/save', { temperature: value }))
+
+  handleCommentsChange = e => this.props.dispatch(Action('ups/save', {
     comments: e.target.value
   }))
 
@@ -77,24 +80,32 @@ export default class Warehouse extends Component {
         name: 'image'
       }).then(res => {
         const { data } = JSON.parse(res.data);
-        dispatch(Action('warehouse/save', {
+        dispatch(Action('ups/save', {
           imageList: [...imageList, data]
         }));
         Taro.hideLoading();
       });
     } else {
       imageList.splice(index, 1);
-      dispatch(Action('warehouse/save', {
+      dispatch(Action('ups/save', {
         imageList
       }));
     }
   }
 
   handleSubmit = () => {
-    const { selectedRoom: { id: room_id }, imageList, dispatch } = this.props;
+    const { selectedRoom: { id: room_id }, imageList, dispatch, temperature } = this.props;
     if (!room_id) {
       Taro.atMessage({
-        message: '请选择库房',
+        message: '请选择教室',
+        type: 'error',
+        duration: 1500
+      });
+      return;
+    }
+    if (!temperature) {
+      Taro.atMessage({
+        message: '请填写室温！',
         type: 'error',
         duration: 1500
       });
@@ -108,7 +119,7 @@ export default class Warehouse extends Component {
       });
       return;
     }
-    dispatch(Action('warehouse/submit'))
+    dispatch(Action('ups/submit'))
   }
 
   render() {
@@ -121,6 +132,7 @@ export default class Warehouse extends Component {
       selectedRoom,
       record,
       comments,
+      temperature,
     } = this.props;
     const { files } = this.state;
     return (
@@ -129,7 +141,7 @@ export default class Warehouse extends Component {
           initialLoading ?
           <AtActivityIndicator mode='center' content='loading...'></AtActivityIndicator> :
           <View>
-            <ListTitle title='巡检库房' />
+            <ListTitle title='巡检教室' />
             <AtList>
               <CustomPicker
                 mode='selector'
@@ -146,38 +158,65 @@ export default class Warehouse extends Component {
                 name='selectedRoom'
                 range={roomList}
                 rangeKey='room_name'
-                title='选择库房'
+                title='选择教室'
                 value={selectedRoom.room_name}
                 onChange={this.handleRoomChange}
-                placeholder='点击选择库房'
+                placeholder='点击选择教室'
               />
             </AtList>
-            <ListTitle title='门窗是否关闭' />
+            <ListTitle title='主机是否正常' />
             <AtRadio
               options={[
                 { label: '是', value: '1' },
                 { label: '否', value: '0' },
               ]}
-              value={record.door_flag}
-              onClick={(value) => this.handleRadioChange(value, 'door_flag')}
+              value={record.host_flag}
+              onClick={(value) => this.handleRadioChange(value, 'host_flag')}
             />
-            <ListTitle title='环境是否安全' />
+            <ListTitle title='外壳是否漏电' />
             <AtRadio
               options={[
                 { label: '是', value: '1' },
                 { label: '否', value: '0' },
               ]}
-              value={record.env_flag}
-              onClick={(value) => this.handleRadioChange(value, 'env_flag')}
+              value={record.shell_flag}
+              onClick={(value) => this.handleRadioChange(value, 'shell_flag')}
             />
-            <ListTitle title='设备是否正常存放' />
+            <ListTitle title='电池是否老化' />
             <AtRadio
               options={[
                 { label: '是', value: '1' },
                 { label: '否', value: '0' },
               ]}
-              value={record.et_flag}
-              onClick={(value) => this.handleRadioChange(value, 'et_flag')}
+              value={record.power_flag}
+              onClick={(value) => this.handleRadioChange(value, 'power_flag')}
+            />
+            <ListTitle title='空调是否正常' />
+            <AtRadio
+              options={[
+                { label: '是', value: '1' },
+                { label: '否', value: '0' },
+              ]}
+              value={record.air_flag}
+              onClick={(value) => this.handleRadioChange(value, 'air_flag')}
+            />
+            <ListTitle title='清洁卫生是否打扫' />
+            <AtRadio
+              options={[
+                { label: '是', value: '1' },
+                { label: '否', value: '0' },
+              ]}
+              value={record.clean_flag}
+              onClick={(value) => this.handleRadioChange(value, 'clean_flag')}
+            />
+            <ListTitle title='室温' />
+            <AtInput
+              name='temperature'
+              title='室温'
+              type='text'
+              placeholder='请填写室温（℃）'
+              value={temperature}
+              onChange={this.handleTemperatureChange}
             />
             <ListTitle title='备注' />
             <View style={{ margin: '10px 20px' }}>

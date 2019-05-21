@@ -39,6 +39,7 @@ class App extends Component {
       'pages/faultlist_subpage/index',
       'pages/machine/index',
       'pages/warehouse/index',
+      'pages/ups/index',
     ],
     window: {
       backgroundTextStyle: 'light',
