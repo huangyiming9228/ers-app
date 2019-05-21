@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
-import { AtList, AtListItem } from 'taro-ui'
+import { AtList, AtListItem, AtMessage } from 'taro-ui'
 import PageHeader from '../components/PageHeader'
 import ListTitle from '../components/ListTitle'
 
@@ -13,9 +13,21 @@ export default class EtManage extends Component {
     url: '../../pages/etcheck/index'
   })
 
-  handleEtCheckOutClick = () => Taro.navigateTo({
-    url: '../../pages/etcheckout/index'
-  })
+  handleEtCheckOutClick = () => {
+    const { user_no } = Taro.getStorageSync('user');
+    const authArray = ['admin', '200731010098', '201499010077', '201899010045', '2019001'];
+    if (authArray.includes(user_no)) {
+      Taro.navigateTo({
+        url: '../../pages/etcheckout/index'
+      })
+    } else {
+      Taro.atMessage({
+        message: '您没有权限使用此功能！',
+        type: 'error',
+        duration: 1500
+      });
+    }
+  }
 
   handleSafetyRecordClick = () => {}
 
@@ -29,6 +41,7 @@ export default class EtManage extends Component {
           <AtListItem title='设备外借' arrow='right' onClick={this.handleEtCheckOutClick} />
           <AtListItem title='综治安全记录' arrow='right' onClick={this.handleSafetyRecordClick} />
         </AtList>
+        <AtMessage />
       </View>
     )
   }

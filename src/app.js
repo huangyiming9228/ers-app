@@ -24,8 +24,8 @@ class App extends Component {
 
   config = {
     pages: [
-      'pages/etmaintain/index',
       'pages/login/index',
+      'pages/etmaintain/index',
       'pages/etmanage/index',
       'pages/index/index',
       'pages/account/index',
@@ -69,7 +69,7 @@ class App extends Component {
         // },
       ],
       color: '#555',
-      selectedColor: '#1890FF',
+      selectedColor: '#6190E8',
       backgroundColor: '#fff',
       borderStyle: 'black',
     },
