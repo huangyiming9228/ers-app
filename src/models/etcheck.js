@@ -34,10 +34,10 @@ export default {
   },
   effects: {
     *getAreas(_, { call, put }) {
-      const { user_no } = Taro.getStorageSync('user');
+      const { user_no, auth } = Taro.getStorageSync('user');
       const { data = [] } = yield call(request, {
         url: 'http://localhost/ers/api/app/getAreas',
-        data: { user_no }
+        data: { user_no, auth }
       });
       yield put(Action('save', {
         areaList: data
@@ -48,11 +48,11 @@ export default {
         title: 'loading',
         mask: true
       })
-      const { user_no } = Taro.getStorageSync('user');
+      const { user_no, auth } = Taro.getStorageSync('user');
       const { selectedArea: { id } } = yield select(state => state.etcheck);
       const { data = [] } = yield call(request, {
         url: 'http://localhost/ers/api/app/getRooms',
-        data: { user_no, id }
+        data: { user_no, id, auth }
       });
       yield put(Action('save', {
         roomList: data,
